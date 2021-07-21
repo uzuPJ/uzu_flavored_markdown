@@ -5,7 +5,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:markdown/markdown.dart' as md;
-import 'package:path/path.dart';
 
 import '_functions_io.dart' if (dart.library.html) '_functions_web.dart';
 import 'style_sheet.dart';
@@ -291,8 +290,6 @@ class MarkdownBuilder implements md.NodeVisitor {
       // of text. These spaces are removed in accordance with the Markdown
       // specification on soft line breaks when lines of text are joined.
       final RegExp _softLineBreakPattern = RegExp(r' ?\n *');
-
-      final RegExp _colorTagPattern = RegExp(r'<*>');
 
       // Leading spaces following a hard line break are ignored.
       // https://github.github.com/gfm/#example-657

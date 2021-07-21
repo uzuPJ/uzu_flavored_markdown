@@ -191,9 +191,7 @@ class TestAssetBundle extends CachingAssetBundle {
           io.File('${rootDirectory.path}/test/assets/images/logo.png');
 
       final ByteData asset = ByteData.view(file.readAsBytesSync().buffer);
-      if (asset == null) {
-        throw FlutterError('Unable to load asset: $key');
-      }
+
       return asset;
     } else {
       throw 'Unknown asset key: $key';
