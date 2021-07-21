@@ -11,7 +11,7 @@
 /// plain text Markdown syntax.
 ///
 /// import 'package:flutter/material.dart';
-/// import 'package:uzu_flavored_markdown/flutter_markdown.dart';
+/// import 'package:uzu_flavored_markdown/uzu_flavored_markdown.dart';
 ///
 /// const String _markdownData = """
 /// # Minimal Markdown Test
