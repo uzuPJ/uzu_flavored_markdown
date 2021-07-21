@@ -4,7 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:uzu_flavored_markdown/flutter_markdown.dart';
+import 'package:uzu_flavored_markdown/uzu_flavored_markdown.dart';
 import '../shared/dropdown_menu.dart';
 import '../shared/markdown_demo_widget.dart';
 import '../shared/markdown_extensions.dart';
