@@ -4,7 +4,7 @@
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/widgets.dart';
-import 'package:uzu_flavored_markdown/flutter_markdown.dart';
+import 'package:uzu_flavored_markdown/uzu_flavored_markdown.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'utils.dart';
 
