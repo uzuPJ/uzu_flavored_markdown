@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:uzu_flavored_markdown/uzu_flavored_markdown.dart';
 import 'package:markdown/markdown.dart' as md;
 import 'package:meta/meta.dart';
@@ -530,5 +531,38 @@ class TaskListSyntax extends md.InlineSyntax {
     el.attributes['checked'] = '${match[1]!.trim().isNotEmpty}';
     parser.addNode(el);
     return true;
+  }
+}
+
+class UzuMd extends StatelessWidget {
+  UzuMd({required this.body});
+
+  final String body;
+
+  @override
+  Widget build(BuildContext context) {
+    return MarkdownBody(
+      data: body.replaceAll('\n', '  \n'),
+      onTapLink: (_, url, __) {
+        if (url == null) {
+          return;
+        }
+        launch(url);
+      },
+      styleSheet: MarkdownStyleSheet(
+        h1: const TextStyle(
+            fontSize: 32, fontWeight: FontWeight.bold, height: 3),
+        h2: const TextStyle(
+            fontSize: 26, fontWeight: FontWeight.bold, height: 3),
+        h3: const TextStyle(
+            fontSize: 22, fontWeight: FontWeight.bold, height: 3),
+        h4: const TextStyle(
+            fontSize: 20, fontWeight: FontWeight.bold, height: 2),
+        p: const TextStyle(
+          fontSize: 14,
+          height: 1.6,
+        ),
+      ),
+    );
   }
 }
