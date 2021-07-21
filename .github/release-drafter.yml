@@ -1,0 +1,34 @@
+name-template: 'v$NEXT_PATCH_VERSION 🌈'
+tag-template: 'v$NEXT_PATCH_VERSION'
+# version-template: "$MAJOR.$MINOR.$PATCH"
+categories:
+  - title: '🚀 Features'
+    labels:
+      - 'Type: Feature'
+  - title: '🐛 Bug Fixes'
+    labels:
+      - 'Type: bug'
+  - title: '🧰 Maintenance'
+    labels:
+      - 'chore'
+change-title-escapes: '\<*_&'
+exclude-labels:
+  - 'exclude from changelog'
+autolabeler:
+  # - label: 'chore'
+  #   files:
+  #     - '*.md'
+  #   branch:
+  #     - '/docs{0,1}\/.+/'
+  - label: 'Type: bug'
+    # branch:
+    #   - '/fix\/.+/'
+    title:
+      - '/fix/i'
+  - label: 'Type: Feature'
+    title:
+      - '/feat\/.+/'
+template: |
+   ## Changes
+
+   $CHANGES
