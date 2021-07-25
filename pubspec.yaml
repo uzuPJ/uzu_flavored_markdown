@@ -23,11 +23,3 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   mockito: ^5.0.0
-
-flutter:
-  fonts:
-    - family: NotoSansJP
-      fonts:
-        - asset: lib/fonts/NotoSansJP-Regular.ttf
-        - asset: lib/fonts/NotoSansJP-Bold.ttf
-          weight: 700
