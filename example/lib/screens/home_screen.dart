@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown_example/demos/uzu_markdown_demo.dart';
 import '../demos/basic_markdown_demo.dart';
 import '../demos/centered_header_demo.dart';
 import '../demos/extended_emoji_demo.dart';
@@ -28,6 +29,7 @@ class HomeScreen extends StatelessWidget {
     const ExtendedEmojiDemo(),
     OriginalMarkdownDemo(),
     const CenteredHeaderDemo(),
+    const UzuMarkdownDemo(),
   ];
 
   @override

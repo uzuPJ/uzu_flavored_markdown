@@ -10,6 +10,10 @@
 
 Saaaaaaa<color=red>int sit cillum</color> pariatur eiusmod nulla pariatur ipsum. <color=yellow>Sit laborum anim qui mollit tempor pariatur</color> nisi minim dolor. Aliquip et adipisicing sit sit fugiat commodo id sunt. Nostrud enim ad commodo incididunt cupidatat in ullamco ullamco Lorem cupidatat velit enim et Lorem.
 
+## 日本語対応
+
+Chrome では設定を変更しないとマークダウンが、いい感じに表示されない。
+
 ## Heading Two
 
 Aute officia nulla deserunt do deserunt cillum velit magna. Officia veniam culpa anim <color=blue>minim dolore labore pariatur voluptate</color> id ad est duis quis velit dolor pariatur enim. Incididunt enim excepteur do veniam consequat culpa do voluptate dolor fugiat ad adipisicing sit.
