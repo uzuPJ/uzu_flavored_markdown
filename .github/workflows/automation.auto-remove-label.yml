@@ -1,0 +1,20 @@
+name: Auto Remove Label
+on:
+  issues:
+    types: [labeled]
+jobs:
+  apply-label:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v4
+        continue-on-error: true
+        if: "${{ contains(github.event.issue.labels.*.name, 'Priority: High') || contains(github.event.issue.labels.*.name, 'Priority: Medium') || contains(github.event.issue.labels.*.name, 'Priority: Low') }}"
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.issues.removeLabel({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              name: 'Priority: NEED-TRIAGE'
+            })

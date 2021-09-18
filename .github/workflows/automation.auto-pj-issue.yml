@@ -1,0 +1,87 @@
+name: Auto Assign to Project
+
+on:
+  issues:
+env:
+  MY_GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - name: debug
+        run: |
+          cat << OBJECT
+          ${{ toJson(github) }}
+          OBJECT
+  priority-high:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Assign Priority: High issues to project"
+        uses: alex-page/github-project-automation-plus@v0.8.1
+        if: "${{ github.event.issue.state != 'closed' && contains(github.event.issue.labels.*.name, 'Priority: High') && github.event.issue.assignee == null && github.event.issue.pull_request == null }}"
+        with:
+          project: 'engineering board'
+          column: 'Priority: High'
+          repo-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+  priority-medium:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Assign Priority: Medium issues to project"
+        uses: alex-page/github-project-automation-plus@v0.8.1
+        if: "${{ github.event.issue.state != 'closed' && contains(github.event.issue.labels.*.name, 'Priority: Medium') && github.event.issue.assignee == null && github.event.issue.pull_request == null }}"
+        with:
+          project: 'engineering board'
+          column: 'Priority: Medium'
+          repo-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+  priority-low:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Assign Priority: Low issues to project"
+        uses: alex-page/github-project-automation-plus@v0.8.1
+        if: "${{ github.event.issue.state != 'closed' && contains(github.event.issue.labels.*.name, 'Priority: Low')  && github.event.issue.assignee == null && github.event.issue.pull_request == null }}"
+        with:
+          project: 'engineering board'
+          column: 'Priority: Low'
+          repo-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+  priority-triage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Assign Priority: NEED-TRIAGE issues to project"
+        uses: alex-page/github-project-automation-plus@v0.8.1
+        if: "${{ github.event.issue.state != 'closed' && contains(github.event.issue.labels.*.name, 'Priority: NEED-TRIAGE') && !contains(github.event.issue.labels.*.name, 'Priority: High') && !contains(github.event.issue.labels.*.name, 'Priority: Medium') && !contains(github.event.issue.labels.*.name, 'Priority: Low') && github.event.issue.assignee == null && github.event.issue.pull_request == null  }}"
+        with:
+          project: 'engineering board'
+          column: 'Priority: NEED-TRIAGE'
+          repo-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+  assigned:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Handle hssigned issues to project"
+        uses: alex-page/github-project-automation-plus@v0.8.1
+        if: "${{ github.event.issue.state != 'closed' && github.event.issue.assignee != null && github.event.issue.pull_request == null }}"
+        with:
+          project: 'engineering board'
+          column: 'To Do'
+          repo-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+  complete:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Handle completed issues to project"
+        uses: alex-page/github-project-automation-plus@v0.8.1
+        if: github.event.action == 'closed' && github.event.issue.pull_request != null
+        with:
+          project: 'engineering board'
+          column: 'Complete'
+          repo-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+  remove:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Handle closed issues to project"
+        uses: alex-page/github-project-automation-plus@v0.8.1
+        if: github.event.action == 'closed' && github.event.issue.pull_request == null
+        with:
+          project: 'engineering board'
+          repo-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          column: 'Complete'
+          action: archive
