@@ -4,6 +4,7 @@
 
 import 'dart:io' as io;
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -38,7 +39,8 @@ void defineTests() {
         final RichText firstTextWidget = texts.first;
         final TextSpan firstTextSpan = firstTextWidget.text as TextSpan;
         final Image image = tester.widget(find.byType(Image));
-        final NetworkImage networkImage = image.image as NetworkImage;
+        final CachedNetworkImageProvider networkImage =
+            image.image as CachedNetworkImageProvider;
         final RichText secondTextWidget = texts.last;
         final TextSpan secondTextSpan = secondTextWidget.text as TextSpan;
 
@@ -61,7 +63,8 @@ void defineTests() {
         );
 
         final Image image = tester.widget(find.byType(Image));
-        final NetworkImage networkImage = image.image as NetworkImage;
+        final CachedNetworkImageProvider networkImage =
+            image.image as CachedNetworkImageProvider;
         expect(networkImage.url, 'https://img');
         expect(image.width, 50);
         expect(image.height, 50);
@@ -318,8 +321,8 @@ void defineTests() {
       'custom image builder',
       (WidgetTester tester) async {
         const String data = '![alt](https://img.png)';
-        Widget builder(Uri uri, String? title, String? alt) =>
-            Image.asset('assets/logo.png');
+        ImageProvider builder(Uri uri, String? title, String? alt) =>
+            AssetImage('assets/logo.png');
 
         await tester.pumpWidget(
           boilerplate(

@@ -50,10 +50,6 @@ Select the valid headers:
 [reference-style][Google]
 ```
 
-## Images
-
-![Flutter logo](/dart-lang/site-shared/master/src/_assets/image/flutter/icon/64.png)
-
 ## Tables
 
 |Syntax                                 |Result                               |

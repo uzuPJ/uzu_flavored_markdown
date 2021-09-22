@@ -144,15 +144,11 @@ Minim id consequat adipisicing cupidatat laborum culpa veniam non consectetur et
 
 In laboris eiusmod reprehenderit aliquip sit proident occaecat. Non sit labore anim elit veniam Lorem minim commodo eiusmod irure do minim nisi.
 
-![Flutter logo](/dart-lang/site-shared/master/src/_assets/image/flutter/icon/64.png)
-
 Officia irure in non voluptate adipisicing sit amet tempor duis dolore deserunt enim ut. Reprehenderit incididunt in ad anim et deserunt deserunt Lorem laborum quis. Enim aute anim labore proident laboris voluptate elit excepteur in.
 
 ![Not so big](https://picsum.photos/id/180/480/400)
 
 In laboris eiusmod reprehenderit aliquip sit proident occaecat. Non sit labore anim elit veniam Lorem minim commodo eiusmod irure do minim nisi.
-
-![alt](resource:assets/logo.png)
 
 # Extended Syntax
 
