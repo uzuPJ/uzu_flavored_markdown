@@ -345,6 +345,8 @@ class MarkdownBuilder implements md.NodeVisitor {
         final int startTagFirstIndex = text.indexOf(startTagFirst);
         final int startTagLastIndex = text.indexOf(startTagLast);
         final int endTagIndex = text.indexOf(endTag);
+        // タグの記述にミスがある場合はスルー
+        if (startTagLastIndex == -1 || endTagIndex == -1) continue;
         final String color = text.substring(
             startTagFirstIndex + startTagFirst.length, startTagLastIndex);
         final String coloredText =
