@@ -4,8 +4,7 @@
 [![Build Status](https://github.com/flutter/uzu_flavored_markdown/workflows/test/badge.svg)](https://github.com/flutter/uzu_flavored_markdown/actions?workflow=test)
 
 A markdown renderer for Flutter. It supports the
-[original format](https://daringfireball.net/projects/markdown/), but no inline
-HTML.
+[original format](https://daringfireball.net/projects/markdown/), but no inline HTML.
 
 ## Overview
 
