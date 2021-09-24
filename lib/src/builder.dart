@@ -2,7 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:markdown/markdown.dart' as md;
@@ -930,10 +929,10 @@ class ColoredText {
 class PhotoViewPage extends StatelessWidget {
   PhotoViewPage(this.uri, this.imageDirectory, this.alt, this.imageBuilder);
 
-  var uri;
-  var imageDirectory;
-  var alt;
-  var imageBuilder;
+  final uri;
+  final imageDirectory;
+  final alt;
+  final imageBuilder;
 
   @override
   Widget build(BuildContext context) {
@@ -956,8 +955,8 @@ class PhotoViewPage extends StatelessWidget {
 class KDefaultPhotoViewPage extends StatelessWidget {
   KDefaultPhotoViewPage(this.uri, this.imageDirectory);
 
-  var uri;
-  var imageDirectory;
+  final uri;
+  final imageDirectory;
 
   @override
   Widget build(BuildContext context) {
@@ -980,12 +979,12 @@ class KDefaultPhotoViewPage extends StatelessWidget {
 class BuildImage extends StatefulWidget {
   BuildImage(this.src, this.title, this.alt, this.imageBuilder,
       this.imageDirectory, this.linkHandlers);
-  String src;
-  String? title;
-  String? alt;
-  var imageBuilder;
-  var imageDirectory;
-  var linkHandlers;
+  final String src;
+  final String? title;
+  final String? alt;
+  final imageBuilder;
+  final imageDirectory;
+  final linkHandlers;
 
   @override
   _BuildImageState createState() => _BuildImageState();
