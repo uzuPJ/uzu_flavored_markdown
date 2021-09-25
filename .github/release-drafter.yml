@@ -7,18 +7,18 @@ categories:
       - "Type: Feature"
   - title: "🐛 Bug Fixes"
     labels:
-      - "Type: bug"
+      - "Type: Bug"
   - title: "🧰 Maintenance"
     labels:
-      - "Type: chore"
+      - "Type: Chore"
 change-title-escapes: '\<*_&'
 exclude-labels:
   - "exclude from changelog"
 autolabeler:
-  - label: "Type: chore"
+  - label: "Type: Chore"
     title:
       - "/chore/i"
-  - label: "Type: bug"
+  - label: "Type: Bug"
     title:
       - "/fix/i"
   - label: "Type: Feature"
