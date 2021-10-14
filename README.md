@@ -1,7 +1,7 @@
 # Flutter Markdown
 
-[![pub package](https://img.shields.io/pub/v/uzu_flavored_markdown.svg)](https://pub.dartlang.org/packages/flutter_markdown)
-[![Build Status](https://github.com/flutter/uzu_flavored_markdown/workflows/test/badge.svg)](https://github.com/flutter/uzu_flavored_markdown/actions?workflow=test)
+[![pub package](https://img.shields.io/pub/v/uzu_flavored_markdown.svg)](https://pub.dartlang.org/packages/uzu_flavored_markdown)
+[![Build Status](https://github.com/uzuPJ/uzu_flavored_markdown/workflows/test/badge.svg)](https://github.com/uzuPJ/uzu_flavored_markdown/actions?workflow=test)
 
 A markdown renderer for Flutter. It supports the
 [original format](https://daringfireball.net/projects/markdown/), but no inline HTML.
@@ -28,3 +28,9 @@ This package was forked from flutter_markdown.
 ```
 UzuMd(body)
 ```
+
+## デプロイ
+
+1. `CHANGELOG.md` を編集
+2. `pubspec.yaml` を編集
+3. リリースタグを打つ
