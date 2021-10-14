@@ -6,11 +6,35 @@ on:
       - published
   workflow_dispatch:
 jobs:
+  update-pubspec:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+      - run: echo $NEW_VERSION
+      - id: update-script
+        run: |
+          NEW_VERSION=${TAGNAME:1}
+          echo $NEW_VERSION
+          sed -r -i -e "s/version: [0-9]+\.[0-9]+\.[0-9]+/version: $NEW_VERSION/" pubspec.yaml
+        env:
+          TAGNAME: ${{ github.event.release.tag_name }}
+      - run: cat pubspec.yaml
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v7
+        with:
+          author_name: Github Actions
+          author_email: sally-ci@users.noreply.github.com
+          message: "chore: Automated Version update"
+          add: "pubspec.yaml"
+          branch: main
+
   publish:
     runs-on: ubuntu-latest
     container:
       image: google/dart:latest
-
+    needs: update-pubspec
     steps:
       - name: Checkout
         uses: actions/checkout@v1
