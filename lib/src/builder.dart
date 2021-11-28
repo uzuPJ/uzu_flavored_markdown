@@ -1034,8 +1034,6 @@ class _BuildImageState extends State<BuildImage> {
         ),
       );
     } else {
-      print('width: ' + width.toString());
-      print('height: ' + height.toString());
       child = InkWell(
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(
