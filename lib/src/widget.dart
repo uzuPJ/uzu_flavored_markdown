@@ -29,7 +29,7 @@ typedef MarkdownTapLinkCallback = void Function(
 /// Signature for custom image widget.
 ///
 /// Used by [MarkdownWidget.imageBuilder]
-typedef MarkdownImageBuilder = Widget Function(
+typedef MarkdownImageBuilder = ImageProvider Function(
     Uri uri, String? title, String? alt);
 
 /// Signature for custom checkbox widget.

@@ -5,6 +5,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:markdown/markdown.dart' as md;
+import 'package:photo_view/photo_view.dart';
 
 import '_functions_io.dart' if (dart.library.html) '_functions_web.dart';
 import 'style_sheet.dart';
@@ -456,10 +457,13 @@ class MarkdownBuilder implements md.NodeVisitor {
         }
       } else if (tag == 'img') {
         // create an image widget for this image
-        current.children.add(_buildImage(
+        current.children.add(BuildImage(
           element.attributes['src']!,
           element.attributes['title'],
           element.attributes['alt'],
+          imageBuilder,
+          imageDirectory,
+          _linkHandlers,
         ));
       } else if (tag == 'br') {
         current.children.add(_buildRichText(const TextSpan(text: '\n')));
@@ -502,39 +506,79 @@ class MarkdownBuilder implements md.NodeVisitor {
     _lastTag = tag;
   }
 
-  Widget _buildImage(String src, String? title, String? alt) {
-    final List<String> parts = src.split('#');
-    if (parts.isEmpty) {
-      return const SizedBox();
-    }
+  // Widget _buildImage(String src, String? title, String? alt) {
+  //   final List<String> parts = src.split('#');
+  //   if (parts.isEmpty) {
+  //     return const SizedBox();
+  //   }
 
-    final String path = parts.first;
-    double? width;
-    double? height;
-    if (parts.length == 2) {
-      final List<String> dimensions = parts.last.split('x');
-      if (dimensions.length == 2) {
-        width = double.parse(dimensions[0]);
-        height = double.parse(dimensions[1]);
-      }
-    }
+  //   final String path = parts.first;
+  //   double? width;
+  //   double? height;
+  //   if (parts.length == 2) {
+  //     final List<String> dimensions = parts.last.split('x');
+  //     if (dimensions.length == 2) {
+  //       width = double.parse(dimensions[0]);
+  //       height = double.parse(dimensions[1]);
+  //     }
+  //   }
 
-    final Uri uri = Uri.parse(path);
-    Widget child;
-    if (imageBuilder != null) {
-      child = imageBuilder!(uri, title, alt);
-    } else {
-      child = kDefaultImageBuilder(uri, imageDirectory, width, height);
-    }
+  //   final Uri uri = Uri.parse(path);
+  //   Widget child;
+  //   if (imageBuilder != null) {
+  //     child = InkWell(
+  //       onTap: () {
+  //         Navigator.of(context).push(MaterialPageRoute(
+  //             fullscreenDialog: true,
+  //             builder: (BuildContext context) {
+  //               return PhotoViewPage(uri, imageDirectory, alt, imageBuilder);
+  //             }));
+  //       },
+  //       child: Container(
+  //         width: width ?? 400,
+  //         height: height ?? ((width ?? 400) * 0.8),
+  //         child: Image(
+  //           image: imageBuilder!(
+  //             uri,
+  //             imageDirectory,
+  //             alt,
+  //           ),
+  //         ),
+  //       ),
+  //     );
+  //   } else {
+  //     print('width: ' + width.toString());
+  //     print('height: ' + height.toString());
+  //     child = InkWell(
+  //       onTap: () {
+  //         MaterialPageRoute(
+  //           fullscreenDialog: true,
+  //           builder: (BuildContext context) {
+  //             return KDefaultPhotoViewPage(uri, imageDirectory);
+  //           },
+  //         );
+  //       },
+  //       child: Container(
+  //         width: width ?? 400,
+  //         height: height ?? ((width ?? 400) * 0.8),
+  //         child: Image(
+  //           image: kDefaultImageBuilder(
+  //             uri,
+  //             imageDirectory,
+  //           ),
+  //         ),
+  //       ),
+  //     );
+  //   }
 
-    if (_linkHandlers.isNotEmpty) {
-      final TapGestureRecognizer recognizer =
-          _linkHandlers.last as TapGestureRecognizer;
-      return GestureDetector(child: child, onTap: recognizer.onTap);
-    } else {
-      return child;
-    }
-  }
+  //   if (_linkHandlers.isNotEmpty) {
+  //     final TapGestureRecognizer recognizer =
+  //         _linkHandlers.last as TapGestureRecognizer;
+  //     return GestureDetector(child: child, onTap: recognizer.onTap);
+  //   } else {
+  //     return child;
+  //   }
+  // }
 
   Widget _buildCheckbox(bool checked) {
     if (checkboxBuilder != null) {
@@ -751,8 +795,7 @@ class MarkdownBuilder implements md.NodeVisitor {
 
     for (int index = 1; index < textSpans.length; index++) {
       final TextSpan nextChild = textSpans[index];
-      if (nextChild is TextSpan &&
-          nextChild.recognizer == mergedSpans.last.recognizer &&
+      if (nextChild.recognizer == mergedSpans.last.recognizer &&
           nextChild.semanticsLabel == mergedSpans.last.semanticsLabel &&
           nextChild.style == mergedSpans.last.style) {
         final TextSpan previous = mergedSpans.removeLast();
@@ -880,4 +923,143 @@ class ColoredText {
     this.color,
     this.text,
   );
+}
+
+class PhotoViewPage extends StatelessWidget {
+  PhotoViewPage(this.uri, this.imageDirectory, this.alt, this.imageBuilder);
+
+  final uri;
+  final imageDirectory;
+  final alt;
+  final imageBuilder;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+      ),
+      body: Container(
+        child: PhotoView(
+          imageProvider: imageBuilder(
+            uri,
+            imageDirectory,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class KDefaultPhotoViewPage extends StatelessWidget {
+  KDefaultPhotoViewPage(this.uri, this.imageDirectory);
+
+  final uri;
+  final imageDirectory;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+      ),
+      body: Container(
+        child: PhotoView(
+          imageProvider: kDefaultImageBuilder(
+            uri,
+            imageDirectory,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class BuildImage extends StatefulWidget {
+  BuildImage(this.src, this.title, this.alt, this.imageBuilder,
+      this.imageDirectory, this.linkHandlers);
+  final String src;
+  final String? title;
+  final String? alt;
+  final imageBuilder;
+  final imageDirectory;
+  final linkHandlers;
+
+  @override
+  _BuildImageState createState() => _BuildImageState();
+}
+
+class _BuildImageState extends State<BuildImage> {
+  @override
+  Widget build(BuildContext context) {
+    final List<String> parts = widget.src.split('#');
+    if (parts.isEmpty) {
+      return const SizedBox();
+    }
+
+    final String path = parts.first;
+    double? width;
+    double? height;
+    if (parts.length == 2) {
+      final List<String> dimensions = parts.last.split('x');
+      if (dimensions.length == 2) {
+        width = double.parse(dimensions[0]);
+        height = double.parse(dimensions[1]);
+      }
+    }
+
+    final Uri uri = Uri.parse(path);
+    Widget child;
+    if (widget.imageBuilder != null) {
+      child = InkWell(
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(
+              fullscreenDialog: true,
+              builder: (BuildContext context) {
+                return PhotoViewPage(uri, widget.imageDirectory, widget.alt,
+                    widget.imageBuilder);
+              }));
+        },
+        child: Container(
+          width: width ?? 400,
+          height: height ?? ((width ?? 400) * 0.8),
+          child: Image(
+            image: widget.imageBuilder!(
+              uri,
+              widget.imageDirectory,
+              widget.alt,
+            ),
+          ),
+        ),
+      );
+    } else {
+      child = InkWell(
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            fullscreenDialog: true,
+            builder: (BuildContext context) {
+              return KDefaultPhotoViewPage(uri, widget.imageDirectory);
+            },
+          ));
+        },
+        child: Container(
+          width: width ?? 400,
+          height: height ?? ((width ?? 400) * 0.8),
+          child: Image(
+            image: kDefaultImageBuilder(
+              uri,
+              widget.imageDirectory,
+            ),
+          ),
+        ),
+      );
+    }
+    if (widget.linkHandlers.isNotEmpty) {
+      final TapGestureRecognizer recognizer =
+          widget.linkHandlers.last as TapGestureRecognizer;
+      return GestureDetector(child: child, onTap: recognizer.onTap);
+    } else {
+      return child;
+    }
+  }
 }

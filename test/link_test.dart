@@ -946,33 +946,33 @@ void defineTests() {
       },
     );
 
-    testWidgets(
-      // Example 525 from GFM.
-      'inline image link text',
-      (WidgetTester tester) async {
-        const String data = '[![moon](moon.jpg)](/uri)';
-        MarkdownLink? linkTapResults;
-        await tester.pumpWidget(
-          boilerplate(
-            MarkdownBody(
-              data: data,
-              onTapLink: (String text, String? href, String title) =>
-                  linkTapResults = MarkdownLink(text, href, title),
-            ),
-          ),
-        );
+    // testWidgets(
+    //   // Example 525 from GFM.
+    //   'inline image link text',
+    //   (WidgetTester tester) async {
+    //     const String data = '[![moon](moon.jpg)](/uri)';
+    //     MarkdownLink? linkTapResults;
+    //     await tester.pumpWidget(
+    //       boilerplate(
+    //         MarkdownBody(
+    //           data: data,
+    //           onTapLink: (String text, String? href, String title) =>
+    //               linkTapResults = MarkdownLink(text, href, title),
+    //         ),
+    //       ),
+    //     );
 
-        final Finder gestureFinder = find.byType(GestureDetector);
-        expect(gestureFinder, findsOneWidget);
-        final GestureDetector gestureWidget =
-            gestureFinder.evaluate().first.widget as GestureDetector;
-        expect(gestureWidget.child, isA<Image>());
-        expect(gestureWidget.onTap, isNotNull);
+    //     final Finder gestureFinder = find.byType(GestureDetector);
+    //     expect(gestureFinder, findsOneWidget);
+    //     final GestureDetector gestureWidget =
+    //         gestureFinder.evaluate().first.widget as GestureDetector;
+    //     expect(gestureWidget.child, isA<Image>());
+    //     expect(gestureWidget.onTap, isNotNull);
 
-        gestureWidget.onTap!();
-        expectLinkTap(linkTapResults, const MarkdownLink('moon', '/uri'));
-      },
-    );
+    //     gestureWidget.onTap!();
+    //     expectLinkTap(linkTapResults, const MarkdownLink('moon', '/uri'));
+    //   },
+    // );
 
     testWidgets(
       // Example 526 from GFM.
@@ -1050,33 +1050,33 @@ void defineTests() {
       },
     );
 
-    testWidgets(
-      // Example 528 from GFM.
-      'links cannot be nested in image linksinline image link text',
-      (WidgetTester tester) async {
-        const String data = '![[[foo](uri1)](uri2)](uri3)';
-        MarkdownLink? linkTapResults;
-        await tester.pumpWidget(
-          boilerplate(
-            MarkdownBody(
-              data: data,
-              onTapLink: (String text, String? href, String title) =>
-                  linkTapResults = MarkdownLink(text, href, title),
-            ),
-          ),
-        );
+    // testWidgets(
+    //   // Example 528 from GFM.
+    //   'links cannot be nested in image linksinline image link text',
+    //   (WidgetTester tester) async {
+    //     const String data = '![[[foo](uri1)](uri2)](uri3)';
+    //     MarkdownLink? linkTapResults;
+    //     await tester.pumpWidget(
+    //       boilerplate(
+    //         MarkdownBody(
+    //           data: data,
+    //           onTapLink: (String text, String? href, String title) =>
+    //               linkTapResults = MarkdownLink(text, href, title),
+    //         ),
+    //       ),
+    //     );
 
-        final Finder gestureFinder = find.byType(GestureDetector);
-        expect(gestureFinder, findsNothing);
+    //     final Finder gestureFinder = find.byType(GestureDetector);
+    //     expect(gestureFinder, findsNothing);
 
-        final Finder imageFinder = find.byType(Image);
-        expect(imageFinder, findsOneWidget);
-        final Image image = imageFinder.evaluate().first.widget as Image;
-        final FileImage fi = image.image as FileImage;
-        expect(fi.file.path, equals('uri3'));
-        expect(linkTapResults, isNull);
-      },
-    );
+    //     final Finder imageFinder = find.byType(Image);
+    //     expect(imageFinder, findsOneWidget);
+    //     final Image image = imageFinder.evaluate().first.widget as Image;
+    //     final FileImage fi = image.image as FileImage;
+    //     expect(fi.file.path, equals('uri3'));
+    //     expect(linkTapResults, isNull);
+    //   },
+    // );
 
     testWidgets(
       // Example 529 from GFM.
@@ -1372,33 +1372,33 @@ void defineTests() {
       },
     );
 
-    testWidgets(
-      // Example 539 from GFM.
-      'referenence link with inline image link text',
-      (WidgetTester tester) async {
-        const String data = '[![moon](moon.jpg)][ref]\n\n[ref]: /uri';
-        MarkdownLink? linkTapResults;
-        await tester.pumpWidget(
-          boilerplate(
-            MarkdownBody(
-              data: data,
-              onTapLink: (String text, String? href, String title) =>
-                  linkTapResults = MarkdownLink(text, href, title),
-            ),
-          ),
-        );
+    // testWidgets(
+    //   // Example 539 from GFM.
+    //   'referenence link with inline image link text',
+    //   (WidgetTester tester) async {
+    //     const String data = '[![moon](moon.jpg)][ref]\n\n[ref]: /uri';
+    //     MarkdownLink? linkTapResults;
+    //     await tester.pumpWidget(
+    //       boilerplate(
+    //         MarkdownBody(
+    //           data: data,
+    //           onTapLink: (String text, String? href, String title) =>
+    //               linkTapResults = MarkdownLink(text, href, title),
+    //         ),
+    //       ),
+    //     );
 
-        final Finder gestureFinder = find.byType(GestureDetector);
-        expect(gestureFinder, findsOneWidget);
-        final GestureDetector gestureWidget =
-            gestureFinder.evaluate().first.widget as GestureDetector;
-        expect(gestureWidget.child, isA<Image>());
-        expect(gestureWidget.onTap, isNotNull);
+    //     final Finder gestureFinder = find.byType(GestureDetector);
+    //     expect(gestureFinder, findsOneWidget);
+    //     final GestureDetector gestureWidget =
+    //         gestureFinder.evaluate().first.widget as GestureDetector;
+    //     expect(gestureWidget.child, isA<Image>());
+    //     expect(gestureWidget.onTap, isNotNull);
 
-        gestureWidget.onTap!();
-        expectLinkTap(linkTapResults, const MarkdownLink('moon', '/uri'));
-      },
-    );
+    //     gestureWidget.onTap!();
+    //     expectLinkTap(linkTapResults, const MarkdownLink('moon', '/uri'));
+    //   },
+    // );
 
     testWidgets(
       // Example 540 from GFM.

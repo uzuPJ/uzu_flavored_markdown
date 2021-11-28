@@ -4,6 +4,7 @@
 
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart' show CupertinoTheme;
 import 'package:flutter/material.dart' show Theme;
 import 'package:flutter/widgets.dart';
@@ -12,31 +13,28 @@ import 'style_sheet.dart';
 import 'widget.dart';
 
 /// Type for a function that creates image widgets.
-typedef ImageBuilder = Widget Function(
-    Uri uri, String? imageDirectory, double? width, double? height);
+typedef ImageBuilder = ImageProvider Function(Uri uri, String? imageDirectory);
 
 /// A default image builder handling http/https, resource, and file URLs.
 // ignore: prefer_function_declarations_over_variables
 final ImageBuilder kDefaultImageBuilder = (
   Uri uri,
   String? imageDirectory,
-  double? width,
-  double? height,
 ) {
   if (uri.scheme == 'http' || uri.scheme == 'https') {
-    return Image.network(uri.toString(), width: width, height: height);
+    return CachedNetworkImageProvider(uri.toString());
   } else if (uri.scheme == 'data') {
-    return _handleDataSchemeUri(uri, width, height);
+    return _handleDataSchemeUri(uri);
   } else if (uri.scheme == 'resource') {
-    return Image.asset(uri.path, width: width, height: height);
+    return AssetImage(uri.path);
   } else {
     final Uri fileUri = imageDirectory != null
         ? Uri.parse(imageDirectory + uri.toString())
         : uri;
     if (fileUri.scheme == 'http' || fileUri.scheme == 'https') {
-      return Image.network(fileUri.toString(), width: width, height: height);
+      return CachedNetworkImageProvider(fileUri.toString());
     } else {
-      return Image.file(File.fromUri(fileUri), width: width, height: height);
+      return FileImage(File.fromUri(fileUri));
     }
   }
 };
@@ -69,17 +67,12 @@ final MarkdownStyleSheet Function(BuildContext, MarkdownStyleSheetBaseTheme?)
   );
 };
 
-Widget _handleDataSchemeUri(
-    Uri uri, final double? width, final double? height) {
+ImageProvider _handleDataSchemeUri(Uri uri) {
   final String mimeType = uri.data!.mimeType;
   if (mimeType.startsWith('image/')) {
-    return Image.memory(
+    return MemoryImage(
       uri.data!.contentAsBytes(),
-      width: width,
-      height: height,
     );
-  } else if (mimeType.startsWith('text/')) {
-    return Text(uri.data!.contentAsString());
   }
-  return const SizedBox();
+  return AssetImage('lib/assets/blank.png');
 }
