@@ -21,14 +21,10 @@ jobs:
         env:
           TAGNAME: ${{ github.event.release.tag_name }}
       - run: cat pubspec.yaml
-      - name: Commit changes
-        uses: EndBug/add-and-commit@v7
+      - name: Update proto file
+        uses: stefanzweifel/git-auto-commit-action@v4.2.0
         with:
-          author_name: Github Actions
-          author_email: sally-ci@users.noreply.github.com
-          message: "chore: Automated Version update"
-          add: "pubspec.yaml"
-          branch: main
+          commit_message: Update proto file
 
   publish:
     runs-on: ubuntu-latest
