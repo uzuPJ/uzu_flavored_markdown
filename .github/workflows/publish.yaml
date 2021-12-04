@@ -22,7 +22,6 @@ jobs:
       - name: Update proto file
         uses: stefanzweifel/git-auto-commit-action@v4.2.0
         with:
-          branch: main
           commit_message: Update proto file
 
   publish:
