@@ -6,29 +6,10 @@ on:
       - published
   workflow_dispatch:
 jobs:
-  update-pubspec:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - run: echo $NEW_VERSION
-      - id: update-script
-        run: |
-          NEW_VERSION=${TAGNAME:1}
-          echo $NEW_VERSION
-          sed -r -i -e "s/version: [0-9]+\.[0-9]+\.[0-9]+/version: $NEW_VERSION/" pubspec.yaml
-        env:
-          TAGNAME: ${{ github.event.release.tag_name }}
-      - run: cat pubspec.yaml
-      - name: Update proto file
-        uses: stefanzweifel/git-auto-commit-action@v4.2.0
-        with:
-          commit_message: Update proto file
-
   publish:
     runs-on: ubuntu-latest
     container:
       image: google/dart:latest
-    needs: update-pubspec
     steps:
       - name: Checkout
         uses: actions/checkout@v1
