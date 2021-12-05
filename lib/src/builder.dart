@@ -818,7 +818,7 @@ class ColoredText {
 
   // 生成に失敗したらnullを返す。
   static ColoredText? generate(String taggedString) {
-    RegExp exp = RegExp(r'^<color=(\w+)>(\s\S+)</color>$');
+    RegExp exp = RegExp(r'^<color=(\w+)>([\s\S]+)</color>$');
     final match = exp.firstMatch(taggedString);
     if (match == null) {
       return null;
