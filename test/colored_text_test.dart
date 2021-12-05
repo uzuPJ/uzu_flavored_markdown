@@ -27,9 +27,9 @@ void defineTests() {
       expect(
         splitColorTags("aa<color=red>aa</color>a"),
         equals([
-          ColoredText(Colors.black, "aa"),
+          ColoredText(null, "aa"),
           ColoredText(Colors.red, "aa"),
-          ColoredText(Colors.black, "a"),
+          ColoredText(null, "a"),
         ]),
       );
     });
@@ -38,8 +38,17 @@ void defineTests() {
       expect(
         splitColorTags("aa<color=rd>aa</color>a"),
         equals([
-          ColoredText(Colors.black, "aa"),
-          ColoredText(Colors.black, "<color=rd>aa</color>a"),
+          ColoredText(null, "aa"),
+          ColoredText(null, "<color=rd>aa</color>a"),
+        ]),
+      );
+    });
+
+    test('generate link', () async {
+      expect(
+        splitColorTags("link [foo [bar]]"),
+        equals([
+          ColoredText(null, "link [foo [bar]]"),
         ]),
       );
     });

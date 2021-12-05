@@ -543,13 +543,15 @@ class UzuMd extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MarkdownBody(
-      data: body.replaceAll('\n', '  \n'),
+      // tableを作成しつつ、改行は改行として扱う。
+      data: body.replaceAll('\n', '  \n').replaceAll('|  \n', '|\n'),
       onTapLink: (_, url, __) {
         if (url == null) {
           return;
         }
         launch(url);
       },
+      extensionSet: md.ExtensionSet.gitHubWeb,
       styleSheet: MarkdownStyleSheet(
         h1: GoogleFonts.mPlus1p(
           fontSize: 26,
