@@ -491,80 +491,6 @@ class MarkdownBuilder implements md.NodeVisitor {
     _lastTag = tag;
   }
 
-  // Widget _buildImage(String src, String? title, String? alt) {
-  //   final List<String> parts = src.split('#');
-  //   if (parts.isEmpty) {
-  //     return const SizedBox();
-  //   }
-
-  //   final String path = parts.first;
-  //   double? width;
-  //   double? height;
-  //   if (parts.length == 2) {
-  //     final List<String> dimensions = parts.last.split('x');
-  //     if (dimensions.length == 2) {
-  //       width = double.parse(dimensions[0]);
-  //       height = double.parse(dimensions[1]);
-  //     }
-  //   }
-
-  //   final Uri uri = Uri.parse(path);
-  //   Widget child;
-  //   if (imageBuilder != null) {
-  //     child = InkWell(
-  //       onTap: () {
-  //         Navigator.of(context).push(MaterialPageRoute(
-  //             fullscreenDialog: true,
-  //             builder: (BuildContext context) {
-  //               return PhotoViewPage(uri, imageDirectory, alt, imageBuilder);
-  //             }));
-  //       },
-  //       child: Container(
-  //         width: width ?? 400,
-  //         height: height ?? ((width ?? 400) * 0.8),
-  //         child: Image(
-  //           image: imageBuilder!(
-  //             uri,
-  //             imageDirectory,
-  //             alt,
-  //           ),
-  //         ),
-  //       ),
-  //     );
-  //   } else {
-  //     print('width: ' + width.toString());
-  //     print('height: ' + height.toString());
-  //     child = InkWell(
-  //       onTap: () {
-  //         MaterialPageRoute(
-  //           fullscreenDialog: true,
-  //           builder: (BuildContext context) {
-  //             return KDefaultPhotoViewPage(uri, imageDirectory);
-  //           },
-  //         );
-  //       },
-  //       child: Container(
-  //         width: width ?? 400,
-  //         height: height ?? ((width ?? 400) * 0.8),
-  //         child: Image(
-  //           image: kDefaultImageBuilder(
-  //             uri,
-  //             imageDirectory,
-  //           ),
-  //         ),
-  //       ),
-  //     );
-  //   }
-
-  //   if (_linkHandlers.isNotEmpty) {
-  //     final TapGestureRecognizer recognizer =
-  //         _linkHandlers.last as TapGestureRecognizer;
-  //     return GestureDetector(child: child, onTap: recognizer.onTap);
-  //   } else {
-  //     return child;
-  //   }
-  // }
-
   Widget _buildCheckbox(bool checked) {
     if (checkboxBuilder != null) {
       return checkboxBuilder!(checked);
@@ -889,7 +815,7 @@ class ColoredText {
 
   // 生成に失敗したらnullを返す。
   static ColoredText? generate(String taggedString) {
-    RegExp exp = RegExp(r'^<color=(\w+)>(.+)</color>$');
+    RegExp exp = RegExp(r'^<color=(\w+)>(\s\S+)</color>$');
     final match = exp.firstMatch(taggedString);
     if (match == null) {
       return null;
