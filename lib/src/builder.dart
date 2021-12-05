@@ -737,7 +737,14 @@ class MarkdownBuilder implements md.NodeVisitor {
         onTap: onTapText,
       );
     } else {
-      final coloredTexts = splitColorTags(text!.text ?? '');
+      if (text?.style == null || text?.text == null) {
+        return RichText(
+          text: text!,
+          textScaleFactor: styleSheet.textScaleFactor!,
+          textAlign: textAlign ?? TextAlign.start,
+        );
+      }
+      final coloredTexts = splitColorTags(text!.text!);
       final newTexts = coloredTexts
           .map((coloredText) => TextSpan(
                 text: coloredText.text,
