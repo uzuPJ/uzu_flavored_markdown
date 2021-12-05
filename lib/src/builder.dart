@@ -331,18 +331,6 @@ class MarkdownBuilder implements md.NodeVisitor {
     }
   }
 
-  List<ColoredText>? getColoredTexts(String text) {
-    final matchs = text.allMatches(r'<color=\w+>.+</color>');
-
-    return matchs
-        .map((match) {
-          if (match.group(0) == null) return null;
-          return ColoredText.generate(match.group(0)!);
-        })
-        .whereType<ColoredText>()
-        .toList();
-  }
-
   @override
   void visitElementAfter(md.Element element) {
     final String tag = element.tag;
@@ -741,10 +729,12 @@ class MarkdownBuilder implements md.NodeVisitor {
         );
       }
       final coloredTexts = splitColorTags(text!.text!);
+      print(coloredTexts);
       final newTexts = coloredTexts
           .map((coloredText) => TextSpan(
                 text: coloredText.text,
-                style: text.style?.copyWith(color: coloredText.color),
+                style: text.style
+                    ?.copyWith(color: coloredText.color ?? text.style?.color),
                 recognizer: text.recognizer,
                 mouseCursor: text.mouseCursor,
                 onEnter: text.onEnter,
@@ -791,7 +781,7 @@ const Map<String, Color> colorMap = <String, Color>{
 };
 
 class ColoredText {
-  Color color;
+  Color? color;
   String text;
   ColoredText(
     this.color,
@@ -810,15 +800,16 @@ class ColoredText {
   }
 
   // 生成に失敗したらnullを返す。
-  static ColoredText black(String text) {
+  static ColoredText deligate(String text) {
     return ColoredText(
-      Colors.black,
+      null,
       text,
     );
   }
 
   // 生成に失敗したらnullを返す。
   static ColoredText? generate(String taggedString) {
+    print(taggedString);
     RegExp exp = RegExp(r'^<color=(\w+)>([\s\S]+)</color>$');
     final match = exp.firstMatch(taggedString);
     if (match == null) {
@@ -826,6 +817,8 @@ class ColoredText {
     }
     final colorStr = match.group(1);
     final body = match.group(2);
+    print(colorStr);
+    print(body);
     if (colorStr == null || body == null) {
       return null;
     }
@@ -1011,7 +1004,7 @@ List<ColoredText> splitColorTags(String text) {
   tagMatches.forEach((tagMatch) {
     if (pointer < tagMatch.first) {
       coloredTexts
-          .add(ColoredText.black(text.substring(pointer, tagMatch.first)));
+          .add(ColoredText.deligate(text.substring(pointer, tagMatch.first)));
       pointer = tagMatch.first;
     }
     final coloredText =
@@ -1023,7 +1016,8 @@ List<ColoredText> splitColorTags(String text) {
   });
 
   if (pointer != text.length) {
-    coloredTexts.add(ColoredText.black(text.substring(pointer, text.length)));
+    coloredTexts
+        .add(ColoredText.deligate(text.substring(pointer, text.length)));
   }
 
   return coloredTexts;

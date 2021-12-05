@@ -109,7 +109,8 @@ void expectValidLink(String linkText) {
 
   // Verify the link text is a onTap gesture recognizer.
   final TextSpan textSpan = richText.text as TextSpan;
-  expectLinkTextSpan(textSpan, linkText);
+  print(textSpan.children);
+  expectLinkTextSpan(textSpan.children!.first as TextSpan, linkText);
 }
 
 void expectLinkTextSpan(TextSpan textSpan, String linkText) {
