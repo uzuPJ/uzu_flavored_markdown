@@ -2,8 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'dart:math';
-
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -277,8 +275,6 @@ class MarkdownBuilder implements md.NodeVisitor {
     if (_blocks.last.tag == null) {
       return;
     }
-
-    final List<ColoredText>? coloredTexts = getColoredTexts(text.text);
 
     _addParentInlineIfNeeded(_blocks.last.tag);
 
@@ -809,7 +805,7 @@ class ColoredText {
 
   @override
   String toString() {
-    return "color: ${color}, text: ${text}";
+    return "color: $color, text: $text";
   }
 
   // 生成に失敗したらnullを返す。

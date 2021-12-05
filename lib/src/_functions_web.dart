@@ -8,7 +8,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart' show CupertinoTheme;
 import 'package:flutter/material.dart' show Theme;
 import 'package:flutter/widgets.dart';
-import 'package:path/path.dart' as p;
 
 import 'style_sheet.dart';
 import 'widget.dart';
