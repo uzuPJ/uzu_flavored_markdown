@@ -78,29 +78,29 @@ void defineTests() {
         );
 
         /// Markdown guide
-        expect(styledTextParts[1].text, 'Markdown guide');
+        expect(styledTextParts[1].toPlainText(), 'Markdown guide');
         expect(styledTextParts[1].style!.color, Colors.blue);
 
         /// and this is
-        expect(styledTextParts[2].text, ' and this is ');
+        expect(styledTextParts[2].toPlainText(), ' and this is ');
         expect(
           styledTextParts[2].style!.color,
           theme.textTheme.bodyText2!.color,
         );
 
         /// bold
-        expect(styledTextParts[3].text, 'bold');
+        expect(styledTextParts[3].toPlainText(), 'bold');
         expect(styledTextParts[3].style!.fontWeight, FontWeight.bold);
 
         /// and
-        expect(styledTextParts[4].text, ' and ');
+        expect(styledTextParts[4].toPlainText(), ' and ');
         expect(
           styledTextParts[4].style!.color,
           theme.textTheme.bodyText2!.color,
         );
 
         /// italic
-        expect(styledTextParts[5].text, 'italic');
+        expect(styledTextParts[5].toPlainText(), 'italic');
         expect(styledTextParts[5].style!.fontStyle, FontStyle.italic);
       },
     );

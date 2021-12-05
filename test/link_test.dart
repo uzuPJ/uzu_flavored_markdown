@@ -118,7 +118,12 @@ void defineTests() {
           ),
         );
 
+        await tester.tap(find.byWidgetPredicate((Widget widget) {
+          return widget is RichText;
+        }));
+
         expectValidLink('link');
+
         expectLinkTap(
             linkTapResults, const MarkdownLink('link', '/uri', 'title'));
       },
@@ -160,6 +165,10 @@ void defineTests() {
           ),
         );
 
+        await tester.tap(find.byWidgetPredicate((Widget widget) {
+          return widget is RichText;
+        }));
+
         expectValidLink('link');
         expectLinkTap(linkTapResults, const MarkdownLink('link', '/uri'));
       },
@@ -181,6 +190,10 @@ void defineTests() {
           ),
         );
 
+        await tester.tap(find.byWidgetPredicate((Widget widget) {
+          return widget is RichText;
+        }));
+
         expectValidLink('link');
         expectLinkTap(linkTapResults, const MarkdownLink('link', ''));
       },
@@ -201,6 +214,10 @@ void defineTests() {
             ),
           ),
         );
+
+        await tester.tap(find.byWidgetPredicate((Widget widget) {
+          return widget is RichText;
+        }));
 
         expectValidLink('link');
         expectLinkTap(linkTapResults, const MarkdownLink('link', ''));
@@ -244,6 +261,10 @@ void defineTests() {
             ),
           ),
         );
+
+        await tester.tap(find.byWidgetPredicate((Widget widget) {
+          return widget is RichText;
+        }));
 
         expectValidLink('link');
         expectLinkTap(linkTapResults, const MarkdownLink('link', '/my%20url'));
@@ -309,6 +330,10 @@ void defineTests() {
             ),
           ),
         );
+
+        await tester.tap(find.byWidgetPredicate((Widget widget) {
+          return widget is RichText;
+        }));
 
         expectValidLink('link');
         expectLinkTap(linkTapResults, const MarkdownLink('link', '/my)url'));
@@ -376,6 +401,10 @@ void defineTests() {
           ),
         );
 
+        await tester.tap(find.byWidgetPredicate((Widget widget) {
+          return widget is RichText;
+        }));
+
         expectValidLink('link');
         expectLinkTap(linkTapResults, const MarkdownLink('link', '(foo)'));
       },
@@ -396,6 +425,10 @@ void defineTests() {
             ),
           ),
         );
+
+        await tester.tap(find.byWidgetPredicate((Widget widget) {
+          return widget is RichText;
+        }));
 
         expectValidLink('link');
         expectLinkTap(
@@ -420,6 +453,10 @@ void defineTests() {
           ),
         );
 
+        await tester.tap(find.byWidgetPredicate((Widget widget) {
+          return widget is RichText;
+        }));
+
         expectValidLink('link');
         expectLinkTap(
             linkTapResults, const MarkdownLink('link', 'foo(and(bar)'));
@@ -441,6 +478,10 @@ void defineTests() {
             ),
           ),
         );
+
+        await tester.tap(find.byWidgetPredicate((Widget widget) {
+          return widget is RichText;
+        }));
 
         expectValidLink('link');
         expectLinkTap(
@@ -465,6 +506,10 @@ void defineTests() {
           ),
         );
 
+        await tester.tap(find.byWidgetPredicate((Widget widget) {
+          return widget is RichText;
+        }));
+
         expectValidLink('link');
         expectLinkTap(linkTapResults, const MarkdownLink('link', 'foo):'));
       },
@@ -487,6 +532,10 @@ void defineTests() {
           ),
         );
 
+        await tester.tap(find.byWidgetPredicate((Widget widget) {
+          return widget is RichText;
+        }));
+
         expectValidLink('link');
         expectLinkTap(linkTapResults, const MarkdownLink('link', '#fragment'));
       },
@@ -508,6 +557,10 @@ void defineTests() {
             ),
           ),
         );
+
+        await tester.tap(find.byWidgetPredicate((Widget widget) {
+          return widget is RichText;
+        }));
 
         expectValidLink('link');
         expectLinkTap(linkTapResults,
@@ -532,6 +585,10 @@ void defineTests() {
           ),
         );
 
+        await tester.tap(find.byWidgetPredicate((Widget widget) {
+          return widget is RichText;
+        }));
+
         expectValidLink('link');
         expectLinkTap(linkTapResults,
             const MarkdownLink('link', 'http://example.com?foo=3#fragment'));
@@ -555,6 +612,10 @@ void defineTests() {
           ),
         );
 
+        await tester.tap(find.byWidgetPredicate((Widget widget) {
+          return widget is RichText;
+        }));
+
         expectValidLink('link');
         expectLinkTap(linkTapResults, const MarkdownLink('link', 'foo\bar'));
       },
@@ -575,6 +636,10 @@ void defineTests() {
             ),
           ),
         );
+
+        await tester.tap(find.byWidgetPredicate((Widget widget) {
+          return widget is RichText;
+        }));
 
         expectValidLink('link');
         expectLinkTap(
@@ -598,6 +663,10 @@ void defineTests() {
           ),
         );
 
+        await tester.tap(find.byWidgetPredicate((Widget widget) {
+          return widget is RichText;
+        }));
+
         expectValidLink('link');
         expectLinkTap(
             linkTapResults, const MarkdownLink('link', '%22title%22'));
@@ -619,6 +688,10 @@ void defineTests() {
             ),
           ),
         );
+
+        await tester.tap(find.byWidgetPredicate((Widget widget) {
+          return widget is RichText;
+        }));
 
         expectValidLink('link');
         expectLinkTap(
@@ -642,6 +715,10 @@ void defineTests() {
           ),
         );
 
+        await tester.tap(find.byWidgetPredicate((Widget widget) {
+          return widget is RichText;
+        }));
+
         expectValidLink('link');
         expectLinkTap(
             linkTapResults, const MarkdownLink('link', '/url', 'title'));
@@ -663,6 +740,10 @@ void defineTests() {
             ),
           ),
         );
+
+        await tester.tap(find.byWidgetPredicate((Widget widget) {
+          return widget is RichText;
+        }));
 
         expectValidLink('link');
         expectLinkTap(
@@ -686,6 +767,10 @@ void defineTests() {
           ),
         );
 
+        await tester.tap(find.byWidgetPredicate((Widget widget) {
+          return widget is RichText;
+        }));
+
         expectValidLink('link');
         expectLinkTap(linkTapResults,
             const MarkdownLink('link', '/url', 'title %22&quot;'));
@@ -707,6 +792,10 @@ void defineTests() {
             ),
           ),
         );
+
+        await tester.tap(find.byWidgetPredicate((Widget widget) {
+          return widget is RichText;
+        }));
 
         expectValidLink('link');
         expectLinkTap(linkTapResults,
@@ -752,6 +841,10 @@ void defineTests() {
           ),
         );
 
+        await tester.tap(find.byWidgetPredicate((Widget widget) {
+          return widget is RichText;
+        }));
+
         expectValidLink('link');
         expectLinkTap(linkTapResults,
             const MarkdownLink('link', '/url', 'title %22and%22 title'));
@@ -773,6 +866,10 @@ void defineTests() {
             ),
           ),
         );
+
+        await tester.tap(find.byWidgetPredicate((Widget widget) {
+          return widget is RichText;
+        }));
 
         expectValidLink('link');
         expectLinkTap(
@@ -817,6 +914,10 @@ void defineTests() {
             ),
           ),
         );
+
+        await tester.tap(find.byWidgetPredicate((Widget widget) {
+          return widget is RichText;
+        }));
 
         expectValidLink('link [foo [bar]]');
         expectLinkTap(
@@ -868,7 +969,10 @@ void defineTests() {
         expect(span.children![0], isA<TextSpan>());
         expect(span.children![0].toPlainText(), '[link ');
 
-        expectLinkTextSpan(span.children![1] as TextSpan, 'bar');
+        await tester.tap(find.byType(RichText));
+
+        expectLinkTextSpan(
+            (span.children![1] as TextSpan).children?.first as TextSpan, 'bar');
         expectLinkTap(linkTapResults, const MarkdownLink('bar', '/uri'));
       },
     );
@@ -888,6 +992,8 @@ void defineTests() {
             ),
           ),
         );
+
+        await tester.tap(find.byType(RichText));
 
         expectValidLink('link [bar');
         expectLinkTap(linkTapResults, const MarkdownLink('link [bar', '/uri'));
@@ -996,7 +1102,8 @@ void defineTests() {
         expect(span.children![0], isA<TextSpan>());
         expect(span.children![0].toPlainText(), '[foo ');
 
-        expectLinkTextSpan(span.children![1] as TextSpan, 'bar');
+        expectLinkTextSpan(
+            (span.children![1] as TextSpan).children?.first as TextSpan, 'bar');
         expectLinkTap(linkTapResults, const MarkdownLink('bar', '/uri'));
 
         expect(span.children![2], isA<TextSpan>());
@@ -1045,7 +1152,8 @@ void defineTests() {
         expectTextSpanStyle(
             span.children![4] as TextSpan, null, FontWeight.normal);
 
-        expectLinkTextSpan(span.children![2] as TextSpan, 'baz');
+        expectLinkTextSpan(
+            (span.children![2] as TextSpan).children?.first as TextSpan, 'baz');
         expectLinkTap(linkTapResults, const MarkdownLink('baz', '/uri'));
       },
     );
@@ -1122,6 +1230,8 @@ void defineTests() {
             ),
           ),
         );
+
+        await tester.tap(find.byType(RichText));
 
         expectValidLink('foo *bar');
         expectLinkTap(linkTapResults, const MarkdownLink('foo *bar', 'baz*'));
@@ -1238,7 +1348,8 @@ void defineTests() {
             span.children![0] as TextSpan, null, FontWeight.normal);
 
         expectLinkTextSpan(
-            span.children![1] as TextSpan, 'http://example.com/?search=](uri)');
+            (span.children![1] as TextSpan).children?.first as TextSpan,
+            'http://example.com/?search=](uri)');
         expectLinkTap(
             linkTapResults,
             const MarkdownLink('http://example.com/?search=](uri)',
@@ -1263,6 +1374,8 @@ void defineTests() {
           ),
         );
 
+        await tester.tap(find.byType(RichText));
+
         expectValidLink('foo');
         expectLinkTap(
             linkTapResults, const MarkdownLink('foo', '/url', 'title'));
@@ -1285,6 +1398,8 @@ void defineTests() {
           ),
         );
 
+        await tester.tap(find.byType(RichText));
+
         expectValidLink('link [foo [bar]]');
         expectLinkTap(
             linkTapResults, const MarkdownLink('link [foo [bar]]', '/uri'));
@@ -1306,6 +1421,8 @@ void defineTests() {
             ),
           ),
         );
+
+        await tester.tap(find.byType(RichText));
 
         expectValidLink('link [bar');
         expectLinkTap(linkTapResults, const MarkdownLink('link [bar', '/uri'));
@@ -1423,13 +1540,15 @@ void defineTests() {
         expect(span.children![0], isA<TextSpan>());
         expect(span.children![0].toPlainText(), '[foo ');
 
-        expectLinkTextSpan(span.children![1] as TextSpan, 'bar');
+        expectLinkTextSpan(
+            (span.children![1] as TextSpan).children?.first as TextSpan, 'bar');
         expectLinkTap(linkTapResults, const MarkdownLink('bar', '/uri'));
 
         expect(span.children![2], isA<TextSpan>());
         expect(span.children![2].toPlainText(), ']');
 
-        expectLinkTextSpan(span.children![3] as TextSpan, 'ref');
+        expectLinkTextSpan(
+            (span.children![3] as TextSpan).children?.first as TextSpan, 'ref');
         expectLinkTap(linkTapResults, const MarkdownLink('ref', '/uri'));
       },
     );
@@ -1464,7 +1583,8 @@ void defineTests() {
         expectTextSpanStyle(
             span.children![1] as TextSpan, FontStyle.italic, FontWeight.normal);
 
-        expectLinkTextSpan(span.children![2] as TextSpan, 'baz');
+        expectLinkTextSpan(
+            (span.children![2] as TextSpan).children?.first as TextSpan, 'baz');
         expectTextSpanStyle(
             span.children![2] as TextSpan, FontStyle.italic, FontWeight.normal);
         expectLinkTap(linkTapResults, const MarkdownLink('baz', '/uri'));
@@ -1474,7 +1594,8 @@ void defineTests() {
         expectTextSpanStyle(
             span.children![3] as TextSpan, null, FontWeight.normal);
 
-        expectLinkTextSpan(span.children![4] as TextSpan, 'ref');
+        expectLinkTextSpan(
+            (span.children![4] as TextSpan).children?.first as TextSpan, 'ref');
         expectTextSpanStyle(
             span.children![4] as TextSpan, null, FontWeight.normal);
         expectLinkTap(linkTapResults, const MarkdownLink('ref', '/uri'));
@@ -1626,7 +1747,8 @@ void defineTests() {
             span.children![0] as TextSpan, null, FontWeight.normal);
 
         expectLinkTextSpan(
-            span.children![1] as TextSpan, 'http://example.com/?search=][ref]');
+            (span.children![1] as TextSpan).children?.first as TextSpan,
+            'http://example.com/?search=][ref]');
         expectLinkTap(
             linkTapResults,
             const MarkdownLink('http://example.com/?search=][ref]',
@@ -1649,6 +1771,8 @@ void defineTests() {
             ),
           ),
         );
+
+        await tester.tap(find.byType(RichText));
 
         expectValidLink('foo');
         expectLinkTap(
@@ -1729,6 +1853,8 @@ void defineTests() {
           ),
         );
 
+        await tester.tap(find.byType(RichText));
+
         expectValidLink('Baz');
         expectLinkTap(linkTapResults, const MarkdownLink('Baz', '/url'));
       },
@@ -1759,7 +1885,8 @@ void defineTests() {
         expectTextSpanStyle(
             span.children![0] as TextSpan, null, FontWeight.normal);
 
-        expectLinkTextSpan(span.children![1] as TextSpan, 'bar');
+        expectLinkTextSpan(
+            (span.children![1] as TextSpan).children?.first as TextSpan, 'bar');
         expectLinkTap(
             linkTapResults, const MarkdownLink('bar', '/url', 'title'));
       },
@@ -1790,7 +1917,8 @@ void defineTests() {
         expectTextSpanStyle(
             span.children![0] as TextSpan, null, FontWeight.normal);
 
-        expectLinkTextSpan(span.children![1] as TextSpan, 'bar');
+        expectLinkTextSpan(
+            (span.children![1] as TextSpan).children?.first as TextSpan, 'bar');
         expectLinkTap(
             linkTapResults, const MarkdownLink('bar', '/url', 'title'));
       },
@@ -1811,6 +1939,8 @@ void defineTests() {
             ),
           ),
         );
+
+        await tester.tap(find.byType(RichText));
 
         expectValidLink('bar');
         expectLinkTap(linkTapResults, const MarkdownLink('bar', '/url1'));
@@ -1964,6 +2094,8 @@ void defineTests() {
           ),
         );
 
+        await tester.tap(find.byType(RichText));
+
         expectValidLink('foo');
         expectLinkTap(linkTapResults, const MarkdownLink('foo', '/uri'));
       },
@@ -2081,6 +2213,8 @@ void defineTests() {
           ),
         );
 
+        await tester.tap(find.byType(RichText));
+
         expectValidLink('foo');
         expectLinkTap(
             linkTapResults, const MarkdownLink('foo', '/url', 'title'));
@@ -2150,6 +2284,8 @@ void defineTests() {
           ),
         );
 
+        await tester.tap(find.byType(RichText));
+
         expectValidLink('Foo');
         expectLinkTap(
             linkTapResults, const MarkdownLink('Foo', '/url', 'title'));
@@ -2182,7 +2318,9 @@ void defineTests() {
 
         expect(textWidgets[0].text, isNotNull);
         expect(textWidgets[0].text, isA<TextSpan>());
-        expectLinkTextSpan(textWidgets[0].text as TextSpan, 'foo');
+        expectLinkTextSpan(
+            (textWidgets[0].text as TextSpan).children?.first as TextSpan,
+            'foo');
         expectLinkTap(
             linkTapResults, const MarkdownLink('foo', '/url', 'title'));
 
@@ -2209,6 +2347,8 @@ void defineTests() {
             ),
           ),
         );
+
+        await tester.tap(find.byType(RichText));
 
         expectValidLink('foo');
         expectLinkTap(
@@ -2335,7 +2475,8 @@ void defineTests() {
         expectTextSpanStyle(
             span.children![0] as TextSpan, null, FontWeight.normal);
 
-        expectLinkTextSpan(span.children![1] as TextSpan, 'foo');
+        expectLinkTextSpan(
+            (span.children![1] as TextSpan).children?.first as TextSpan, 'foo');
         expectLinkTap(linkTapResults, const MarkdownLink('foo', '/url'));
       },
     );
@@ -2355,6 +2496,8 @@ void defineTests() {
             ),
           ),
         );
+
+        await tester.tap(find.byType(RichText));
 
         expectValidLink('Foo');
         expectLinkTap(
@@ -2459,6 +2602,8 @@ void defineTests() {
           ),
         );
 
+        await tester.tap(find.byType(RichText));
+
         expectValidLink('foo');
         expectLinkTap(linkTapResults, const MarkdownLink('foo', '/url2'));
       },
@@ -2480,6 +2625,8 @@ void defineTests() {
           ),
         );
 
+        await tester.tap(find.byType(RichText));
+
         expectValidLink('foo');
         expectLinkTap(linkTapResults, const MarkdownLink('foo', '/url1'));
       },
@@ -2500,6 +2647,8 @@ void defineTests() {
             ),
           ),
         );
+
+        await tester.tap(find.byType(RichText));
 
         expectValidLink('foo');
         expectLinkTap(linkTapResults, const MarkdownLink('foo', ''));
@@ -2561,7 +2710,8 @@ void defineTests() {
         expectTextSpanStyle(
             span.children![0] as TextSpan, null, FontWeight.normal);
 
-        expectLinkTextSpan(span.children![1] as TextSpan, 'bar');
+        expectLinkTextSpan(
+            (span.children![1] as TextSpan).children?.first as TextSpan, 'bar');
         expectLinkTap(linkTapResults, const MarkdownLink('bar', '/url'));
       },
     );
@@ -2589,7 +2739,8 @@ void defineTests() {
         expectLinkTextSpan(span.children![0] as TextSpan, 'foo');
         expectLinkTap(linkTapResults, const MarkdownLink('foo', '/url2'));
 
-        expectLinkTextSpan(span.children![1] as TextSpan, 'baz');
+        expectLinkTextSpan(
+            (span.children![1] as TextSpan).children?.first as TextSpan, 'baz');
         expectLinkTap(linkTapResults, const MarkdownLink('baz', '/url1'));
       },
     );
@@ -2616,7 +2767,8 @@ void defineTests() {
         expect(span.children![0], isA<TextSpan>());
         expect(span.children![0].toPlainText(), '[foo]');
 
-        expectLinkTextSpan(span.children![1] as TextSpan, 'bar');
+        expectLinkTextSpan(
+            (span.children![1] as TextSpan).children?.first as TextSpan, 'bar');
         expectLinkTap(linkTapResults, const MarkdownLink('bar', '/url1'));
       },
     );
