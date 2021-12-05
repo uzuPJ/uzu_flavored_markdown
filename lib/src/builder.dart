@@ -2,6 +2,9 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'dart:math';
+
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:markdown/markdown.dart' as md;
@@ -325,7 +328,6 @@ class MarkdownBuilder implements md.NodeVisitor {
           recognizer: _linkHandlers.isNotEmpty ? _linkHandlers.last : null,
         ),
         textAlign: _textAlignForBlockTag(_currentBlockTag),
-        coloredTexts: coloredTexts,
       );
     }
     if (child != null) {
@@ -334,32 +336,15 @@ class MarkdownBuilder implements md.NodeVisitor {
   }
 
   List<ColoredText>? getColoredTexts(String text) {
-    const String startTagFirst = '<color=';
-    const String startTagLast = '>';
-    const String endTag = '</color>';
-    List<ColoredText>? coloredTexts;
-    while (true) {
-      if (text.contains(startTagFirst)) {
-        coloredTexts ??= [];
-        final int startTagFirstIndex = text.indexOf(startTagFirst);
-        final int startTagLastIndex = text.indexOf(startTagLast);
-        final int endTagIndex = text.indexOf(endTag);
-        // タグの記述にミスがある場合はスルー
-        if (startTagLastIndex == -1 || endTagIndex == -1) continue;
-        final String color = text.substring(
-            startTagFirstIndex + startTagFirst.length, startTagLastIndex);
-        final String coloredText =
-            text.substring(startTagLastIndex, endTagIndex);
-        coloredTexts.add(ColoredText(
-          color,
-          coloredText,
-        ));
-        text = text.substring(endTagIndex + endTag.length);
-      } else {
-        break;
-      }
-    }
-    return coloredTexts;
+    final matchs = text.allMatches(r'<color=\w+>.+</color>');
+
+    return matchs
+        .map((match) {
+          if (match.group(0) == null) return null;
+          return ColoredText.generate(match.group(0)!);
+        })
+        .whereType<ColoredText>()
+        .toList();
   }
 
   @override
@@ -817,32 +802,7 @@ class MarkdownBuilder implements md.NodeVisitor {
         : TextSpan(children: mergedSpans);
   }
 
-  Widget _buildRichText(TextSpan? text,
-      {TextAlign? textAlign, List<ColoredText>? coloredTexts}) {
-    final Map<String, Color> colorMap = <String, Color>{
-      'red': Colors.red,
-      'blue': Colors.blue,
-      'yellow': Colors.yellow,
-      'black': Colors.black,
-      'transparent': Colors.transparent,
-      'white': Colors.white,
-      'amber': Colors.amber,
-      'blueGrey': Colors.blueGrey,
-      'brown': Colors.brown,
-      'cyan': Colors.cyan,
-      'deepOrange': Colors.deepOrange,
-      'deepPurple': Colors.deepPurple,
-      'green': Colors.green,
-      'grey': Colors.grey,
-      'indigo': Colors.indigo,
-      'lightBlue': Colors.lightBlue,
-      'lightGreen': Colors.lightGreen,
-      'lime': Colors.lime,
-      'orange': Colors.orange,
-      'pink': Colors.pink,
-      'purple': Colors.purple,
-      'teal': Colors.teal,
-    };
+  Widget _buildRichText(TextSpan? text, {TextAlign? textAlign}) {
     if (selectable) {
       return SelectableText.rich(
         text!,
@@ -851,78 +811,100 @@ class MarkdownBuilder implements md.NodeVisitor {
         onTap: onTapText,
       );
     } else {
-      if (coloredTexts != null) {
-        final List<String> splitedTexts = text!.text!.split(RegExp(r'<.*?>'));
-        List<TextStyle> newStyle = <TextStyle>[];
-        List<TextSpan> newText = <TextSpan>[];
+      final coloredTexts = splitColorTags(text!.text ?? '');
+      final newTexts = coloredTexts
+          .map((coloredText) => TextSpan(
+                text: coloredText.text,
+                style: text.style?.copyWith(color: coloredText.color),
+                recognizer: text.recognizer,
+                mouseCursor: text.mouseCursor,
+                onEnter: text.onEnter,
+                onExit: text.onExit,
+                semanticsLabel: text.semanticsLabel,
+              ))
+          .toList();
 
-        for (int i = 0; i < coloredTexts.length; i++) {
-          newStyle.add(TextStyle(
-            inherit: text.style!.inherit,
-            color: colorMap[coloredTexts[i].color],
-            backgroundColor: text.style!.backgroundColor,
-            fontSize: text.style!.fontSize,
-            fontWeight: text.style!.fontWeight,
-            fontStyle: text.style!.fontStyle,
-            letterSpacing: text.style!.letterSpacing,
-            wordSpacing: text.style!.wordSpacing,
-            textBaseline: text.style!.textBaseline,
-            height: text.style!.height,
-            leadingDistribution: text.style!.leadingDistribution,
-            locale: text.style!.locale,
-            foreground: text.style!.foreground,
-            background: text.style!.background,
-            shadows: text.style!.shadows,
-            fontFeatures: text.style!.fontFeatures,
-            decoration: text.style!.decoration,
-            decorationColor: text.style!.decorationColor,
-            decorationStyle: text.style!.decorationStyle,
-            decorationThickness: text.style!.decorationThickness,
-            debugLabel: text.style!.debugLabel,
-            fontFamily: text.style!.fontFamily,
-            fontFamilyFallback: text.style!.fontFamilyFallback,
-          ));
-        }
-        int coloredCount = 0;
-        for (int i = 0; i < splitedTexts.length; i++) {
-          newText.add(TextSpan(
-            text: splitedTexts[i],
-            style: i.isEven ? text.style : newStyle[coloredCount],
-            recognizer: text.recognizer,
-            mouseCursor: text.mouseCursor,
-            onEnter: text.onEnter,
-            onExit: text.onExit,
-            semanticsLabel: text.semanticsLabel,
-          ));
-          if (i.isOdd) {
-            coloredCount++;
-          }
-        }
-        return RichText(
-          text: TextSpan(
-            children: newText,
-          ),
-          textScaleFactor: styleSheet.textScaleFactor!,
-          textAlign: textAlign ?? TextAlign.start,
-        );
-      } else {
-        return RichText(
-          text: text!,
-          textScaleFactor: styleSheet.textScaleFactor!,
-          textAlign: textAlign ?? TextAlign.start,
-        );
-      }
+      return RichText(
+        text: TextSpan(
+          children: newTexts,
+        ),
+        textScaleFactor: styleSheet.textScaleFactor!,
+        textAlign: textAlign ?? TextAlign.start,
+      );
     }
   }
 }
 
+const Map<String, Color> colorMap = <String, Color>{
+  'red': Colors.red,
+  'blue': Colors.blue,
+  'yellow': Colors.yellow,
+  'black': Colors.black,
+  'transparent': Colors.transparent,
+  'white': Colors.white,
+  'amber': Colors.amber,
+  'blueGrey': Colors.blueGrey,
+  'brown': Colors.brown,
+  'cyan': Colors.cyan,
+  'deepOrange': Colors.deepOrange,
+  'deepPurple': Colors.deepPurple,
+  'green': Colors.green,
+  'grey': Colors.grey,
+  'indigo': Colors.indigo,
+  'lightBlue': Colors.lightBlue,
+  'lightGreen': Colors.lightGreen,
+  'lime': Colors.lime,
+  'orange': Colors.orange,
+  'pink': Colors.pink,
+  'purple': Colors.purple,
+  'teal': Colors.teal,
+};
+
 class ColoredText {
-  String color;
+  Color color;
   String text;
   ColoredText(
     this.color,
     this.text,
   );
+
+  @override
+  bool operator ==(other) =>
+      other is ColoredText && other.color == color && other.text == text;
+  @override
+  int get hashCode => hashValues(color, text);
+
+  @override
+  String toString() {
+    return "color: ${color}, text: ${text}";
+  }
+
+  // 生成に失敗したらnullを返す。
+  static ColoredText black(String text) {
+    return ColoredText(
+      Colors.black,
+      text,
+    );
+  }
+
+  // 生成に失敗したらnullを返す。
+  static ColoredText? generate(String taggedString) {
+    RegExp exp = RegExp(r'^<color=(\w+)>(.+)</color>$');
+    final match = exp.firstMatch(taggedString);
+    if (match == null) {
+      return null;
+    }
+    final colorStr = match.group(1);
+    final body = match.group(2);
+    if (colorStr == null || body == null) {
+      return null;
+    }
+    final color = colorMap[colorStr];
+    if (color == null) {
+      return null;
+    }
+    return ColoredText(color, body);
+  }
 }
 
 class PhotoViewPage extends StatelessWidget {
@@ -1062,4 +1044,57 @@ class _BuildImageState extends State<BuildImage> {
       return child;
     }
   }
+}
+
+List<ColoredText> splitColorTags(String text) {
+  final startTagIndexes =
+      RegExp(r"<color=(\w+)>").allMatches(text).map((tag) => tag.start);
+  final endTagIndexes =
+      RegExp(r"</color>").allMatches(text).map((tag) => tag.end);
+  final tagMatches = <List<int>>[];
+
+  for (int startIndex in startTagIndexes) {
+    final lastIndex = tagMatches.lastOrNull?.lastOrNull;
+    if (lastIndex != null && startIndex < lastIndex) {
+      continue;
+    }
+    final endIndex = endTagIndexes.firstWhereOrNull((i) => i > startIndex);
+    if (endIndex == null) {
+      continue;
+    }
+    tagMatches.add([startIndex, endIndex]);
+  }
+
+  final coloredTextStart = tagMatches.map((e) => e.first);
+  final normalTextStart = tagMatches.map((e) => e.last + 1).toList();
+  if (coloredTextStart.firstOrNull != 0) {
+    normalTextStart.insert(0, 0);
+  }
+  if (normalTextStart.lastOrNull != null &&
+      normalTextStart.last > text.length) {
+    normalTextStart.removeLast();
+  }
+
+  int pointer = 0;
+  final coloredTexts = <ColoredText>[];
+
+  tagMatches.forEach((tagMatch) {
+    if (pointer < tagMatch.first) {
+      coloredTexts
+          .add(ColoredText.black(text.substring(pointer, tagMatch.first)));
+      pointer = tagMatch.first;
+    }
+    final coloredText =
+        ColoredText.generate(text.substring(pointer, tagMatch.last));
+    if (coloredText != null) {
+      coloredTexts.add(coloredText);
+      pointer = tagMatch.last;
+    }
+  });
+
+  if (pointer != text.length) {
+    coloredTexts.add(ColoredText.black(text.substring(pointer, text.length)));
+  }
+
+  return coloredTexts;
 }
