@@ -756,6 +756,7 @@ class MarkdownBuilder implements md.NodeVisitor {
       return RichText(
         text: TextSpan(
           children: newTexts,
+          style: text.style,
         ),
         textScaleFactor: styleSheet.textScaleFactor!,
         textAlign: textAlign ?? TextAlign.start,
