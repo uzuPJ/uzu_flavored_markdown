@@ -183,7 +183,6 @@ class MarkdownBuilder implements md.NodeVisitor {
   @override
   bool visitElementBefore(md.Element element) {
     final String tag = element.tag;
-    print(tag);
     _currentBlockTag ??= tag;
 
     if (builders.containsKey(tag)) {
@@ -202,7 +201,6 @@ class MarkdownBuilder implements md.NodeVisitor {
       } else if (tag == 'table') {
         _tables.add(_TableElement());
       } else if (tag == 'tr') {
-        print("tag is tr");
         final int length = _tables.single.rows.length;
         BoxDecoration? decoration =
             styleSheet.tableCellsDecoration as BoxDecoration?;
@@ -354,8 +352,6 @@ class MarkdownBuilder implements md.NodeVisitor {
         child = const SizedBox();
       }
 
-      print(_tables);
-
       if (_isListTag(tag)) {
         assert(_listIndents.isNotEmpty);
         _listIndents.removeLast();
@@ -393,7 +389,6 @@ class MarkdownBuilder implements md.NodeVisitor {
           );
         }
       } else if (tag == 'table') {
-        print(_tables.single.rows.first);
         child = Table(
           defaultColumnWidth: styleSheet.tableColumnWidth!,
           defaultVerticalAlignment: TableCellVerticalAlignment.middle,

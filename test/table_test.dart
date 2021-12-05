@@ -149,8 +149,9 @@ void defineTests() {
             .cast<RichText>()
             .map((RichText richText) => richText.text)
             .cast<TextSpan>()
-            .map((TextSpan e) => e.text)
+            .map((TextSpan e) => e.toPlainText())
             .toList();
+
         expect(cellText[0], 'Header 1');
         expect(cellText[1], 'Header 2');
         expect(cellText[2], '');
@@ -189,7 +190,7 @@ void defineTests() {
             .cast<RichText>()
             .map((RichText richText) => richText.text)
             .cast<TextSpan>()
-            .map((TextSpan e) => e.text)
+            .map((TextSpan e) => e.toPlainText())
             .toList();
         expect(cellText[0], 'Header 1');
         expect(cellText[1], 'Header 2');
@@ -232,7 +233,7 @@ void defineTests() {
               .cast<RichText>()
               .map((RichText richText) => richText.text)
               .cast<TextSpan>()
-              .map((TextSpan e) => e.text)
+              .map((TextSpan e) => e.toPlainText())
               .toList();
           expect(cellText[0], 'foo');
           expect(cellText[1], 'bar');
@@ -271,7 +272,7 @@ void defineTests() {
               .cast<RichText>()
               .map((RichText richText) => richText.text)
               .cast<TextSpan>()
-              .map((TextSpan e) => e.text)
+              .map((TextSpan e) => e.toPlainText())
               .toList();
           expect(cellText[0], 'abc');
           expect(cellText[1], 'defghi');
@@ -355,7 +356,7 @@ void defineTests() {
               .cast<RichText>()
               .map((RichText richText) => richText.text)
               .cast<TextSpan>()
-              .map((TextSpan e) => e.text)
+              .map((TextSpan e) => e.toPlainText())
               .toList();
           expect(text[0], 'abc');
           expect(text[1], 'def');
@@ -399,7 +400,7 @@ void defineTests() {
               .cast<RichText>()
               .map((RichText richText) => richText.text)
               .cast<TextSpan>()
-              .map((TextSpan e) => e.text)
+              .map((TextSpan e) => e.toPlainText())
               .toList();
           expect(text[0], 'abc');
           expect(text[1], 'def');
@@ -477,7 +478,7 @@ void defineTests() {
               .cast<RichText>()
               .map((RichText richText) => richText.text)
               .cast<TextSpan>()
-              .map((TextSpan e) => e.text)
+              .map((TextSpan e) => e.toPlainText())
               .toList();
           expect(cellText[0], 'abc');
           expect(cellText[1], 'def');
@@ -517,7 +518,7 @@ void defineTests() {
               .cast<RichText>()
               .map((RichText richText) => richText.text)
               .cast<TextSpan>()
-              .map((TextSpan e) => e.text)
+              .map((TextSpan e) => e.toPlainText())
               .toList();
           expect(cellText[0], 'abc');
           expect(cellText[1], 'def');
