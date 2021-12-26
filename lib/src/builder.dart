@@ -830,63 +830,30 @@ class ColoredText {
 }
 
 class PhotoViewPage extends StatelessWidget {
-  PhotoViewPage(this.uri, this.imageDirectory, this.alt, this.imageBuilder);
+  PhotoViewPage({this.imageProvider});
 
-  final uri;
-  final imageDirectory;
-  final alt;
-  final imageBuilder;
+  final ImageProvider<Object>? imageProvider;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         child: PhotoView(
-          imageProvider: imageBuilder(
-            uri,
-            imageDirectory,
-          ),
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.white.withOpacity(0.6),
-          onPressed: () => {
-                // フローティングアクションボタンを押された時の処理.
-                print("フローティングアクションボタンをクリック")
-              },
-          child: Icon(Icons.accessibility_new)),
-    );
-  }
-}
-
-class KDefaultPhotoViewPage extends StatelessWidget {
-  KDefaultPhotoViewPage(this.uri, this.imageDirectory);
-
-  final uri;
-  final imageDirectory;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        child: PhotoView(
-          imageProvider: kDefaultImageBuilder(
-            uri,
-            imageDirectory,
-          ),
+          imageProvider: imageProvider,
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       floatingActionButton: SizedBox(
         width: 42,
         child: FloatingActionButton(
-            backgroundColor: Colors.white.withOpacity(0.6),
-            onPressed: () => {Navigator.of(context).pop()},
-            child: Icon(
-              Icons.close,
-              size: 28,
-              color: Colors.black87,
-            )),
+          backgroundColor: Colors.white.withOpacity(0.6),
+          onPressed: () => {Navigator.of(context).pop()},
+          child: Icon(
+            Icons.close,
+            size: 28,
+            color: Colors.black87,
+          ),
+        ),
       ),
     );
   }
@@ -930,12 +897,19 @@ class _BuildImageState extends State<BuildImage> {
     if (widget.imageBuilder != null) {
       child = InkWell(
         onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(
+          Navigator.of(context).push(
+            MaterialPageRoute(
               fullscreenDialog: true,
               builder: (BuildContext context) {
-                return PhotoViewPage(uri, widget.imageDirectory, widget.alt,
-                    widget.imageBuilder);
-              }));
+                return PhotoViewPage(
+                  imageProvider: kDefaultImageBuilder(
+                    uri,
+                    widget.imageDirectory,
+                  ),
+                );
+              },
+            ),
+          );
         },
         child: Container(
           width: width ?? 400,
@@ -952,12 +926,19 @@ class _BuildImageState extends State<BuildImage> {
     } else {
       child = InkWell(
         onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(
-            fullscreenDialog: true,
-            builder: (BuildContext context) {
-              return KDefaultPhotoViewPage(uri, widget.imageDirectory);
-            },
-          ));
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              fullscreenDialog: true,
+              builder: (BuildContext context) {
+                return PhotoViewPage(
+                  imageProvider: kDefaultImageBuilder(
+                    uri,
+                    widget.imageDirectory,
+                  ),
+                );
+              },
+            ),
+          );
         },
         child: Container(
           width: width ?? 400,
