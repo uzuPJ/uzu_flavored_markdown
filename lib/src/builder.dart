@@ -840,9 +840,6 @@ class PhotoViewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-      ),
       body: Container(
         child: PhotoView(
           imageProvider: imageBuilder(
@@ -851,6 +848,13 @@ class PhotoViewPage extends StatelessWidget {
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.white.withOpacity(0.6),
+          onPressed: () => {
+                // フローティングアクションボタンを押された時の処理.
+                print("フローティングアクションボタンをクリック")
+              },
+          child: Icon(Icons.accessibility_new)),
     );
   }
 }
@@ -864,9 +868,6 @@ class KDefaultPhotoViewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-      ),
       body: Container(
         child: PhotoView(
           imageProvider: kDefaultImageBuilder(
@@ -874,6 +875,18 @@ class KDefaultPhotoViewPage extends StatelessWidget {
             imageDirectory,
           ),
         ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+      floatingActionButton: SizedBox(
+        width: 42,
+        child: FloatingActionButton(
+            backgroundColor: Colors.white.withOpacity(0.6),
+            onPressed: () => {Navigator.of(context).pop()},
+            child: Icon(
+              Icons.close,
+              size: 28,
+              color: Colors.black87,
+            )),
       ),
     );
   }
