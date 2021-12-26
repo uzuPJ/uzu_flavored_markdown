@@ -4,7 +4,6 @@
 
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -12,11 +11,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:uzu_flavored_markdown/uzu_flavored_markdown.dart';
 import 'package:markdown/markdown.dart' as md;
-import 'package:meta/meta.dart';
 
 import '_functions_io.dart' if (dart.library.html) '_functions_web.dart';
-import 'builder.dart';
-import 'style_sheet.dart';
 
 /// Signature for callbacks used by [MarkdownWidget] when the user taps a link.
 /// The callback will return the link text, destination, and title from the

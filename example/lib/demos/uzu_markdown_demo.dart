@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import '../shared/markdown_demo_widget.dart';
 import 'package:uzu_flavored_markdown/uzu_flavored_markdown.dart';
 
