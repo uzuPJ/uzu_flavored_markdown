@@ -837,23 +837,34 @@ class PhotoViewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: PhotoView(
-          imageProvider: imageProvider,
-        ),
+      // appBarを入れないと、アプリの表示するときにバグる。
+      // おそらく、Navigator関連
+      appBar: AppBar(
+        toolbarHeight: 0,
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-      floatingActionButton: SizedBox(
-        width: 42,
-        child: FloatingActionButton(
-          backgroundColor: Colors.white.withOpacity(0.6),
-          onPressed: () => {Navigator.of(context).pop()},
-          child: Icon(
-            Icons.close,
-            size: 28,
-            color: Colors.black87,
+      body: Stack(
+        children: [
+          PhotoView(
+            imageProvider: imageProvider,
           ),
-        ),
+          Container(
+            padding: EdgeInsets.all(8),
+            width: 48,
+            decoration: ShapeDecoration(
+              color: Colors.white.withOpacity(0.6),
+              shape: CircleBorder(),
+            ),
+            child: IconButton(
+              padding: EdgeInsets.zero,
+              onPressed: () => {Navigator.of(context).pop()},
+              icon: Icon(
+                Icons.close,
+                size: 24,
+                color: Colors.black87,
+              ),
+            ),
+          )
+        ],
       ),
     );
   }
