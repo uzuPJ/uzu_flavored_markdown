@@ -1,0 +1,53 @@
+name: Github Project Automation (Triggered by Pull Request)
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - edited
+      - review_requested
+      - review_request_removed
+      - closed
+  pull_request_review:
+    types: [submitted]
+
+jobs:
+  pull_request:
+    runs-on: ubuntu-latest
+    steps:
+      - name: debug-object
+        run: |
+          cat << OBJECT
+          ${{ toJson(github) }}
+          OBJECT
+
+      - name: debug-requested_reviewers
+        if: contains(toJson(github.event.pull_request.requested_reviewers), '[]')
+        run: |
+          cat << OBJECT
+          ${{ github.event.pull_requst.requested_reviewers }}
+          OBJECT
+
+      # https://github.community/t/getting-object-length/17802/2 この方法で判別
+      - name: When draft pull_request is opened, move in progress column.
+        if: github.event_name == 'pull_request' && (github.event.pull_requst.draft || contains(toJson(github.event.pull_request.requested_reviewers), '[]'))
+        uses: aitaro/github-project-connect-action@master
+        with:
+          github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          column-url: https://github.com/orgs/uzuPJ/projects/1#column-11273440
+
+      - name: When pull_request is review_requested, move the connected issue to the Reviewing column
+        if: ${{  github.event_name == 'pull_request' && github.event.action == 'review_requested' }}
+        uses: aitaro/github-project-connect-action@master
+        with:
+          github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          column-url: https://github.com/orgs/uzuPJ/projects/1#column-15760144
+
+      - name: When pull_request_review is approved, move the connected issue to the Ready column
+        if: ${{ github.event_name == 'pull_request_review' && github.event.review.state == 'approved' }}
+        uses: aitaro/github-project-connect-action@master
+        with:
+          github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          column-url: https://github.com/orgs/uzuPJ/projects/1#column-15760165
