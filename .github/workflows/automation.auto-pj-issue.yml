@@ -5,9 +5,6 @@ on:
 env:
   MY_GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
-concurrency: 
-  group: github-${{ github.event.issue.id }}
-
 # 既に存在する場合はエラーになるため continue-on-error をつける
 jobs:
   issue:
