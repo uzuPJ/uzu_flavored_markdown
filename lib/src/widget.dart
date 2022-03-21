@@ -545,7 +545,7 @@ class UzuMd extends StatelessWidget {
         if (url == null) {
           return;
         }
-        launch(url);
+        launch(url, forceWebView: true, enableJavaScript: false);
       },
       extensionSet: md.ExtensionSet.gitHubWeb,
       styleSheet: MarkdownStyleSheet(

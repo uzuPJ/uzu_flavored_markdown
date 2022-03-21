@@ -26,6 +26,7 @@ dependencies:
   photo_view: ^0.13.0
   cached_network_image: ^3.2.0
   collection: ^1.15.0
+  # webview_flutter: ^3.0.1
 
 dev_dependencies:
   flutter_test:
