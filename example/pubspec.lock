@@ -433,7 +433,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.0.22"
+    version: "0.0.23"
   vector_math:
     dependency: transitive
     description:
